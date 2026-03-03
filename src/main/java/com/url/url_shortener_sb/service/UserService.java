@@ -4,10 +4,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.url.url_shortener_sb.dtos.LoginRequest;
+import com.url.url_shortener_sb.dtos.UrlMappingDTO;
 import com.url.url_shortener_sb.models.User;
 import com.url.url_shortener_sb.repository.UserRepository;
 import com.url.url_shortener_sb.security.jwt.JwtAuthenticationResponse;
@@ -28,7 +29,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public JwtAuthenticationResponse authenticateUser(LoginRequest loginRequest){
+    public JwtAuthenticationResponse authenticateUser(UrlMappingDTO loginRequest){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                         loginRequest.getPassword()));
@@ -36,6 +37,11 @@ public class UserService {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         String jwt = jwtUtils.generateToken(userDetails);
         return new JwtAuthenticationResponse(jwt);
+    }
+
+    public User findByUsername(String name) {
+
+        return userRepository.findByUsername(name).orElseThrow( () -> new UsernameNotFoundException("User not found with username: " + name));
     }
 
     // public User findByUsername(String name) {
