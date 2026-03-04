@@ -3,6 +3,8 @@ package com.url.url_shortener_sb.dtos;
 
 import java.time.LocalDateTime;
 
+// import org.jspecify.annotations.Nullable;
+
 import lombok.Data;
 
 @Data
@@ -13,6 +15,7 @@ public class UrlMappingDTO {
     // private Set<String> role;
     private String shortUrl;
     private int clickCount;
-    private LocalDateTime createdAt;
+    private LocalDateTime createdDate;
     private String username;
+    private String password;
 }

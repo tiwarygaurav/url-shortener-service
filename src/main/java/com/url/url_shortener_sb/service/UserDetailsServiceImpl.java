@@ -17,6 +17,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
+
+    // To tell spring sec - this is how you're supposed to laod an user info after validating a token
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
