@@ -28,6 +28,10 @@ A scalable URL shortener service built using Spring Boot and MySQL that generate
 
 \- REST APIs
 
+\- HTML  & CSS
+
+\- React.JS | Node.JS
+
 
 
 ---
